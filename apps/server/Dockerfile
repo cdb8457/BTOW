@@ -39,9 +39,6 @@ COPY --from=build /app/apps/server/drizzle.config.ts ./apps/server/drizzle.confi
 COPY --from=build /app/apps/server/migrate.ts ./apps/server/migrate.ts
 COPY --from=build /app/apps/server/drizzle ./apps/server/drizzle
 
-# Copy any loose migration SQL files from server root
-COPY apps/server/*.sql ./apps/server/ 2>/dev/null || true
-
 # tsx for running TypeScript directly in production
 RUN pnpm add -g tsx
 
