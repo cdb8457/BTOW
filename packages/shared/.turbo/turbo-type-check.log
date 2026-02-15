@@ -1,0 +1,4 @@
+
+> @btow/shared@0.1.0 type-check Z:\BTOW\packages\shared
+> tsc --noEmit
+

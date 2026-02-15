@@ -1,0 +1,4 @@
+
+> @btow/web@0.1.0 type-check Z:\BTOW\apps\web
+> tsc --noEmit
+
