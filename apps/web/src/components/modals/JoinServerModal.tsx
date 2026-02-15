@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useServerStore } from '../../stores/serverStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
+import { getApiUrl } from '../../lib/config';
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +20,7 @@ interface ServerPreview {
   };
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 function extractCode(input: string): string {
   const trimmed = input.trim();

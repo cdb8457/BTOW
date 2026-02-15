@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '../../../stores/authStore';
 import { ChannelData, CategoryData } from '../../../stores/channelStore';
+import { getApiUrl } from '../../../lib/config';
 
 interface Props {
   serverId: string;
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 type ChannelType = 'text' | 'voice';
 

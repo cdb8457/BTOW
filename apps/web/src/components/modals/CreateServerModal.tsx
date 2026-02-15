@@ -2,13 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useServerStore } from '../../stores/serverStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
+import { getApiUrl } from '../../lib/config';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 export function CreateServerModal({ isOpen, onClose }: Props) {
   const [name, setName] = useState('');

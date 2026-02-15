@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import { useAuthStore } from '../stores/authStore';
+import { getWsUrl } from '../lib/config';
 
-const SOCKET_URL = (import.meta as any).env?.VITE_API_URL ?? 'http://localhost:3000';
+const SOCKET_URL = getWsUrl();
 
 let socketInstance: Socket | null = null;
 

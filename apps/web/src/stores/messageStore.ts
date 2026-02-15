@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { useAuthStore } from './authStore';
 import { getSocket } from '../hooks/useSocket';
+import { getApiUrl } from '../lib/config';
 import type { MessagePayload, AttachmentPayload, EmbedPayload, ReactionGroup, LinkPreviewPayload } from '@btow/shared';
 
 interface MessageState {
@@ -20,7 +21,7 @@ interface MessageState {
   fetchMessages: (channelId: string, before?: string) => Promise<void>;
 }
 
-const API_URL = (import.meta as any).env?.VITE_API_URL ?? 'http://localhost:3000';
+const API_URL = getApiUrl().replace(/\/api$/, '');
 
 export const useMessageStore = create<MessageState>((set, get) => ({
   messagesByChannel: {},

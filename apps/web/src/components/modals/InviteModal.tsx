@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
+import { getApiUrl } from '../../lib/config';
 
 interface Props {
   isOpen: boolean;
@@ -9,7 +10,7 @@ interface Props {
   serverName: string;
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
   const [inviteUrl, setInviteUrl] = useState('');

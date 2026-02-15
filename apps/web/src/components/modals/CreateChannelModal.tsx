@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useChannelStore } from '../../stores/channelStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
+import { getApiUrl } from '../../lib/config';
 
 interface Props {
   isOpen: boolean;
@@ -11,7 +12,7 @@ interface Props {
   categoryName?: string;
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 function sanitize(name: string): string {
   return name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-_]/g, '');

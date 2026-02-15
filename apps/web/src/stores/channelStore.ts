@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { useAuthStore } from './authStore';
+import { getApiUrl } from '../lib/config';
 
 export interface ChannelData {
   id: string;
@@ -42,7 +43,7 @@ export const useChannelStore = create<ChannelState>((set) => ({
 
     set({ loading: true, error: null });
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/servers/${serverId}/channels`, {
+      const res = await fetch(`${getApiUrl()}/api/servers/${serverId}/channels`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (!res.ok) throw new Error('Failed to fetch channels');

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { useServerStore } from '../stores/serverStore';
+import { getApiUrl } from '../lib/config';
 
 interface ServerPreview {
   code: string;
@@ -14,7 +15,7 @@ interface ServerPreview {
   };
 }
 
-const API = import.meta.env.VITE_API_URL;
+const API = getApiUrl();
 
 export default function InvitePage() {
   const { code } = useParams<{ code: string }>();
