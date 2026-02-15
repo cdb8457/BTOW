@@ -1,5 +1,5 @@
 FROM node:20-alpine AS base
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
 # ── Install deps ──────────────────────────────────────────────────────────────
@@ -23,7 +23,7 @@ RUN pnpm --filter @btow/server build 2>/dev/null || \
 
 # ── Production runner ─────────────────────────────────────────────────────────
 FROM node:20-alpine AS runner
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
 # Install production deps only
