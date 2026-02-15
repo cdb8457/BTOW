@@ -1,4 +1,5 @@
 FROM node:20-alpine AS base
+RUN apk add --no-cache python3 make g++
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
@@ -23,6 +24,7 @@ RUN pnpm --filter @btow/server build 2>/dev/null || \
 
 # ── Production runner ─────────────────────────────────────────────────────────
 FROM node:20-alpine AS runner
+RUN apk add --no-cache python3 make g++
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /app
 
