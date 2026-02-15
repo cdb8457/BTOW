@@ -26,7 +26,7 @@ ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_WS_URL=$VITE_WS_URL
 ENV VITE_LIVEKIT_URL=$VITE_LIVEKIT_URL
 
-RUN cd apps/web && pnpm build
+RUN cd apps/web && npx vite build
 
 # ── Serve with nginx ──────────────────────────────────────────────────────────
 FROM nginx:alpine AS runner
