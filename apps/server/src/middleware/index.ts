@@ -5,10 +5,9 @@ import rateLimit from '@fastify/rate-limit';
 
 export async function setupMiddleware(fastify: FastifyInstance) {
   await fastify.register(cors, {
-    origin:
-      process.env.NODE_ENV === 'production'
-        ? (process.env.CLIENT_URL ?? 'https://btow.example.com')
-        : ['http://localhost:5173', 'http://localhost:3000'],
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+      : ['http://localhost:5173', 'http://localhost:3000'],
     credentials: true,
   });
 
