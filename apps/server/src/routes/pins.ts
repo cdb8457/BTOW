@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 import { db } from '../db';
 import { messages, users, members, channels } from '../db/schema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, desc } from 'drizzle-orm';
 import { authMiddleware } from '../middleware/auth';
 import type { AuthenticatedRequest } from '../middleware/auth';
 import { decryptMessage } from '../utils/encryption';
@@ -50,7 +50,8 @@ export async function pinRoutes(fastify: FastifyInstance) {
         })
         .from(messages)
         .innerJoin(users, eq(messages.authorId, users.id))
-        .where(and(eq(messages.channelId, channelId), eq(messages.pinned, true)));
+        .where(and(eq(messages.channelId, channelId), eq(messages.pinned, true)))
+        .orderBy(desc(messages.createdAt));
 
       const formatted = rows.map((row) => {
         // Decrypt message content
@@ -76,6 +77,7 @@ export async function pinRoutes(fastify: FastifyInstance) {
           pinned: row.msg.pinned,
           reactions: [],
           createdAt: row.msg.createdAt.toISOString(),
+          linkPreview: row.msg.linkPreview ?? null,
         };
       });
 
