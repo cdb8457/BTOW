@@ -30,10 +30,10 @@ COPY apps/server/package.json ./apps/server/
 RUN pnpm install --prod
 
 # Copy server source files
+COPY apps/server/drizzle ./apps/server/drizzle
 COPY apps/server/src ./apps/server/src
 COPY apps/server/drizzle.config.ts ./apps/server/
 COPY apps/server/migrate.ts ./apps/server/
-COPY apps/server/drizzle ./apps/server/drizzle
 
 # Install tsx globally
 RUN npm install -g tsx
