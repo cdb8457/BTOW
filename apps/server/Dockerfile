@@ -29,6 +29,9 @@ COPY apps/server/package.json ./apps/server/
 # Install prod deps
 RUN pnpm install --prod
 
+# Build shared package
+RUN cd packages/shared && npx tsc || true
+
 # Copy server source files
 COPY apps/server/drizzle ./apps/server/drizzle
 COPY apps/server/src ./apps/server/src
