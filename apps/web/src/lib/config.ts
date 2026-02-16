@@ -12,7 +12,7 @@ export function getApiUrl(): string {
   return (
     window.__BTOW_CONFIG__?.apiUrl ??
     import.meta.env.VITE_API_URL ??
-    window.location.origin + '/api'
+    window.location.origin
   );
 }
 

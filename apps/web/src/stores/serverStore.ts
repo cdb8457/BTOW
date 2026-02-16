@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { useAuthStore } from './authStore';
-import { getApiUrl } from '../lib/config';
 
 export interface ServerData {
   id: string;
@@ -32,7 +31,7 @@ export const useServerStore = create<ServerState>((set) => ({
 
     set({ loading: true, error: null });
     try {
-      const res = await fetch(`${getApiUrl()}/api/servers`, {
+      const res = await fetch(`/api/servers`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       if (!res.ok) throw new Error('Failed to fetch servers');

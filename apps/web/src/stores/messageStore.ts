@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { useAuthStore } from './authStore';
 import { getSocket } from '../hooks/useSocket';
-import { getApiUrl } from '../lib/config';
 import type { MessagePayload, AttachmentPayload, EmbedPayload, ReactionGroup, LinkPreviewPayload } from '@btow/shared';
 
 interface MessageState {
@@ -21,7 +20,7 @@ interface MessageState {
   fetchMessages: (channelId: string, before?: string) => Promise<void>;
 }
 
-const API_URL = getApiUrl().replace(/\/api$/, '');
+
 
 export const useMessageStore = create<MessageState>((set, get) => ({
   messagesByChannel: {},
@@ -105,7 +104,7 @@ export const useMessageStore = create<MessageState>((set, get) => ({
       if (before) params.set('before', before);
 
       const token = useAuthStore.getState().accessToken;
-      const res = await fetch(`${API_URL}/api/channels/${channelId}/messages?${params}`, {
+      const res = await fetch(`/api/channels/${channelId}/messages?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
