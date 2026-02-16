@@ -108,8 +108,6 @@ services:
       DB_USER: ${DB_USER:-btow}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME:-btow}
-    volumes:
-      - ../apps/server/drizzle:/app/apps/server/drizzle:ro
     networks:
       - btow
     command: ["tsx", "apps/server/migrate.ts"]
