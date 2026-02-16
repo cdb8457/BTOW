@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import { config } from 'dotenv';
-import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { ZodTypeProvider, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import { setupMiddleware } from './middleware';
 import { authRoutes } from './routes/auth';
 import { messageRoutes } from './routes/messages';
@@ -21,11 +21,14 @@ import { initializeSocketIO } from './socket';
 config({ path: '../../.env' });
 
 // Create Fastify instance
-const fastify = Fastify({
+  const fastify = Fastify({
   logger: {
     level: process.env.LOG_LEVEL || 'info',
   },
 }).withTypeProvider<ZodTypeProvider>();
+
+fastify.setValidatorCompiler(validatorCompiler);
+fastify.setSerializerCompiler(serializerCompiler);
 
 async function start() {
   try {
