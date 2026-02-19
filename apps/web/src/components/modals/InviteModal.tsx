@@ -1,16 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
-import { getApiUrl } from '../../lib/config';
-
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   serverId: string;
   serverName: string;
 }
-
-const API = getApiUrl();
 
 export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
   const [inviteUrl, setInviteUrl] = useState('');
@@ -32,7 +28,7 @@ export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
     setLoading(true);
     setInviteUrl('');
     try {
-      const res = await fetch(`${API}/api/servers/${serverId}/invites`, {
+      const res = await fetch(`/api/servers/${serverId}/invites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,14 +82,14 @@ export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
     >
-      <div 
+      <div
         ref={modalRef}
         className="bg-gray-800 rounded-xl w-full max-w-md p-6 shadow-2xl"
       >
@@ -128,9 +124,8 @@ export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
             onClick={handleCopy}
             disabled={loading || !inviteUrl}
             aria-label={copied ? 'Link copied' : 'Copy link'}
-            className={`px-4 py-2.5 text-sm font-medium rounded-lg transition ${
-              copied ? 'bg-green-600 text-white' : 'bg-blue-600 hover:bg-blue-500 text-white'
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
+            className={`px-4 py-2.5 text-sm font-medium rounded-lg transition ${copied ? 'bg-green-600 text-white' : 'bg-blue-600 hover:bg-blue-500 text-white'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             {copied ? 'Copied!' : 'Copy'}
           </button>
@@ -169,8 +164,8 @@ export function InviteModal({ isOpen, onClose, serverId, serverName }: Props) {
           </div>
         </div>
 
-        <button 
-          onClick={generateInvite} 
+        <button
+          onClick={generateInvite}
           className="text-sm text-blue-400 hover:text-blue-300 transition"
         >
           Generate a new link

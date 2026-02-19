@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useServerStore } from '../../stores/serverStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
-import { getApiUrl } from '../../lib/config';
 
 interface Props {
   isOpen: boolean;
@@ -20,13 +19,11 @@ interface ServerPreview {
   };
 }
 
-const API = getApiUrl();
-
-function extractCode(input: string): string {
+const extractCode = (input: string): string => {
   const trimmed = input.trim();
   const match = trimmed.match(/\/invite\/([a-z0-9]+)/i);
   return match ? match[1] : trimmed;
-}
+};
 
 export function JoinServerModal({ isOpen, onClose }: Props) {
   const [input, setInput] = useState('');
@@ -64,7 +61,7 @@ export function JoinServerModal({ isOpen, onClose }: Props) {
     setError('');
     setPreview(null);
     try {
-      const res = await fetch(`${API}/api/invites/${code}`);
+      const res = await fetch(`/api/invites/${code}`);
       if (!res.ok) {
         const data = await res.json() as { error?: string };
         throw new Error(data.error ?? 'Invalid invite');
@@ -83,7 +80,7 @@ export function JoinServerModal({ isOpen, onClose }: Props) {
     setJoining(true);
     setError('');
     try {
-      const res = await fetch(`${API}/api/invites/${code}/accept`, {
+      const res = await fetch(`/api/invites/${code}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${accessToken}` },
       });
@@ -105,14 +102,14 @@ export function JoinServerModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
     >
-      <div 
+      <div
         ref={modalRef}
         className="bg-gray-800 rounded-xl w-full max-w-md p-6 shadow-2xl"
       >
@@ -129,7 +126,7 @@ export function JoinServerModal({ isOpen, onClose }: Props) {
         <p id={descriptionId} className="text-sm text-gray-400 mb-6">Enter an invite link or code to join a server.</p>
 
         {error && (
-          <div 
+          <div
             id={errorId}
             role="alert"
             aria-live="polite"

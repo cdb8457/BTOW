@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { useServerStore } from '../stores/serverStore';
-import { getApiUrl } from '../lib/config';
 
 interface ServerPreview {
   code: string;
@@ -14,8 +13,6 @@ interface ServerPreview {
     memberCount: number;
   };
 }
-
-const API = getApiUrl();
 
 export default function InvitePage() {
   const { code } = useParams<{ code: string }>();
@@ -30,7 +27,7 @@ export default function InvitePage() {
 
   useEffect(() => {
     if (!code) return;
-    fetch(`${API}/api/invites/${code}`)
+    fetch(`/api/invites/${code}`)
       .then(async (res) => {
         if (!res.ok) {
           const data = await res.json() as { error?: string };
@@ -53,7 +50,7 @@ export default function InvitePage() {
     setJoining(true);
     setError('');
     try {
-      const res = await fetch(`${API}/api/invites/${code}/accept`, {
+      const res = await fetch(`/api/invites/${code}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${accessToken}` },
       });

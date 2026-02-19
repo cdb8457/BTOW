@@ -2,14 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { useServerStore } from '../../stores/serverStore';
 import { useFocusTrap, useId } from '../../hooks/useFocusTrap';
-import { getApiUrl } from '../../lib/config';
-
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const API = getApiUrl();
 
 export function CreateServerModal({ isOpen, onClose }: Props) {
   const [name, setName] = useState('');
@@ -47,7 +43,7 @@ export function CreateServerModal({ isOpen, onClose }: Props) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API}/api/servers`, {
+      const res = await fetch('/api/servers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +69,7 @@ export function CreateServerModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
@@ -101,7 +97,7 @@ export function CreateServerModal({ isOpen, onClose }: Props) {
         <p id={descriptionId} className="text-sm text-gray-400 mb-6">Your server is where you and your friends hang out.</p>
 
         {error && (
-          <div 
+          <div
             id={errorId}
             role="alert"
             aria-live="polite"
