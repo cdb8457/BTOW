@@ -18,7 +18,7 @@ RUN cd packages/shared && npx tsc || true
 FROM build-shared AS build
 COPY apps/web ./apps/web
 
-ARG VITE_API_URL=http://localhost:3000/api
+ARG VITE_API_URL=http://localhost:3000
 ARG VITE_WS_URL=http://localhost:3000
 ARG VITE_LIVEKIT_URL=ws://localhost:7880
 
