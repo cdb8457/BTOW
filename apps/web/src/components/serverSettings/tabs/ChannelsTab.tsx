@@ -134,7 +134,7 @@ export function ChannelsTab({ serverId }: Props) {
     }
     
     try {
-      const res = await fetch(`${API}/api/servers/${serverId}/channels/${channelId}`, {
+      const res = await fetch(`${API}/api/channels/${channelId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ export function ChannelsTab({ serverId }: Props) {
     if (!confirm('Are you sure you want to delete this channel?')) return;
     
     try {
-      const res = await fetch(`${API}/api/servers/${serverId}/channels/${channelId}`, {
+      const res = await fetch(`${API}/api/channels/${channelId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${accessToken}` },
       });
